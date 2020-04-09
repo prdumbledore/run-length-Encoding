@@ -5,7 +5,7 @@ public class Main {
     @Option(name = "-z", metaVar = "Zip", usage = "File packaging")
     private boolean zip;
 
-    @Option(name = "-u", metaVar = "Unzip", usage = "File unpacking")
+    @Option(name = "-u", metaVar = "Unzip", usage = "File unpacking", forbids = {"-z"})
     private boolean unzip;
 
     @Option(name = "-out", metaVar = "outputFile", usage = "Output document", required = true)
@@ -33,7 +33,8 @@ public class Main {
         PackRLE packRLE = new PackRLE(inputFile, zip, unzip);
         try {
             String result = packRLE.newFile();
-            System.out.println("Файл называется:" + result);
+            System.out.println("The file is located in this directory: C:\\Users\\eriks\\IdeaProjects\\task2Java\\" + result);
+            System.out.println("Or: C:\\Users\\eriks\\IdeaProjects\\task2Java\\out\\artifacts\\task2Java_jar\\" + result);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

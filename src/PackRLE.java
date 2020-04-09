@@ -5,19 +5,29 @@ public class PackRLE {
     private File inputFile;
     private boolean zip;
     private boolean unzip;
-
     public PackRLE(File inputFile, boolean zip, boolean unzip) {
         this.inputFile = inputFile;
         this.zip = zip;
         this.unzip = unzip;
     }
 
+    /**
+     * Программа посимвольно читает входяший файл, подсчитывает кол-во повторов подряд символа и записывает в новый
+     * в формате двух символов: [кол-во повторов от 0-9 (где 0 - это 1 повтор)][сам символ]
+     *
+     * Программа не считает кол-во повторов управляющих символов, таких как: пробел, переход на новую строку и т.д.
+     * Управляющие символы находятся в диапазоне от 0 до 31, 32 - пробел.
+     * Так же это сделано для улучшения коэффициента сжатия.
+     *
+     * @return output file name
+     * @throws IOException
+     */
     public String newFile() throws IOException {
         StringBuilder outputName = new StringBuilder(inputFile.getName());
-        outputName.replace(inputFile.getName().length() - 3, inputFile.getName().length(), "");
+        outputName.replace(inputFile.getName().length() - 4, inputFile.getName().length(), "");
         StringBuilder newFile = new StringBuilder();
         if (zip) {
-            outputName.append("Zipped.txt");
+            outputName.append("_Zip.txt");
             try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
                 int counterRepetitions = 0;
                 int prevChar = -1;
@@ -36,11 +46,11 @@ public class PackRLE {
                     }
                     prevChar = newChar;
                 }
-                newFile.append(counterRepetitions);
+                if (prevChar > 32) newFile.append(counterRepetitions);
                 newFile.append((char) prevChar);
             }
         } else if (unzip) {
-            outputName.append("Unzipped.txt");
+            outputName.append("_Unzip.txt");
             try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
                 boolean counter = false;
                 int counterRepetitions = 0;
