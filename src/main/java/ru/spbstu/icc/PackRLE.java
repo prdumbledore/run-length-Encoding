@@ -1,4 +1,4 @@
-package main.java;
+package ru.spbstu.icc;
 
 import java.io.*;
 
@@ -26,7 +26,7 @@ public class PackRLE {
                 int newChar;
                 while ((newChar = reader.read()) != -1) {
                     if (prevChar > 32 || prevChar == -1) {
-                        if (newChar == prevChar && counterRepetitions < 10) {
+                        if (newChar == prevChar && counterRepetitions < 9) {
                             counterRepetitions++;
                         } else if (prevChar != -1) {
                             newFile.append(counterRepetitions);
@@ -38,11 +38,8 @@ public class PackRLE {
                     }
                     prevChar = newChar;
                 }
-                if (counterRepetitions == 0) newFile.append(prevChar);
-                else {
-                    newFile.append(counterRepetitions + 1);
-                    newFile.append((char) prevChar);
-                }
+                newFile.append(counterRepetitions);
+                newFile.append((char) prevChar);
             }
         } else if (unzip) {
             outputName.append("Unzipped.txt");

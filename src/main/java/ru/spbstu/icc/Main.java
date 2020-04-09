@@ -1,6 +1,8 @@
-package main.java;
+package ru.spbstu.icc;
 
 import org.kohsuke.args4j.*;
+import ru.spbstu.icc.PackRLE;
+
 import java.io.*;
 
 public class Main {
@@ -11,9 +13,9 @@ public class Main {
     private boolean unzip;
 
     @Option(name = "-out", metaVar = "outputFile", usage = "Output document", required = true)
-    private File outputFile;
+    private boolean outputFile;
 
-    @Argument(required = true, metaVar = "inputFileName", usage = "Input document name")
+    @Argument(required = true, metaVar = "inputFile", usage = "Input document name")
     private File inputFile;
 
 
