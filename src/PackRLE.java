@@ -1,5 +1,3 @@
-package ru.spbstu.icc;
-
 import java.io.*;
 
 public class PackRLE {

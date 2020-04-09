@@ -1,8 +1,4 @@
-package ru.spbstu.icc;
-
 import org.kohsuke.args4j.*;
-import ru.spbstu.icc.PackRLE;
-
 import java.io.*;
 
 public class Main {
