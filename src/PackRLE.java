@@ -1,10 +1,12 @@
 import java.io.*;
+import java.util.Map;
 
 public class PackRLE {
 
-    private File inputFile;
-    private boolean zip;
-    private boolean unzip;
+    private final File inputFile;
+    private final boolean zip;
+    private final boolean unzip;
+
     public PackRLE(File inputFile, boolean zip, boolean unzip) {
         this.inputFile = inputFile;
         this.zip = zip;
@@ -23,6 +25,7 @@ public class PackRLE {
      * @throws IOException
      */
     public String newFile() throws IOException {
+        Map<Integer, Character> digitsTable = new DigitsTable().setDigitsTable();
         StringBuilder outputName = new StringBuilder(inputFile.getName());
         outputName.replace(inputFile.getName().length() - 4, inputFile.getName().length(), "");
         StringBuilder newFile = new StringBuilder();
@@ -34,10 +37,10 @@ public class PackRLE {
                 int newChar;
                 while ((newChar = reader.read()) != -1) {
                     if (prevChar > 32 || prevChar == -1) {
-                        if (newChar == prevChar && counterRepetitions < 9) {
+                        if (newChar == prevChar && counterRepetitions < 62) {
                             counterRepetitions++;
                         } else if (prevChar != -1) {
-                            newFile.append(counterRepetitions);
+                            newFile.append(digitsTable.get(counterRepetitions));
                             newFile.append((char) prevChar);
                             counterRepetitions = 0;
                         }
@@ -46,7 +49,7 @@ public class PackRLE {
                     }
                     prevChar = newChar;
                 }
-                if (prevChar > 32) newFile.append(counterRepetitions);
+                if (prevChar > 32) newFile.append(digitsTable.get(counterRepetitions));
                 newFile.append((char) prevChar);
             }
         } else if (unzip) {
@@ -64,7 +67,7 @@ public class PackRLE {
                             }
                             counter = false;
                         } else {
-                            counterRepetitions = newChar - '0' + 1;
+                            counterRepetitions = DigitsTable.getValue(digitsTable, (char) newChar) + 1;
                             counter = true;
                         }
                     } else {
