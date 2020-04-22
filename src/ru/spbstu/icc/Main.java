@@ -1,15 +1,18 @@
+package ru.spbstu.icc;
+
 import org.kohsuke.args4j.*;
+
 import java.io.*;
 
 public class Main {
-    @Option(name = "-z", metaVar = "Zip", usage = "File packaging")
-    private boolean zip;
+    @Option(name = "-z", metaVar = "packingFlag", usage = "File packaging")
+    private boolean packingFlag;
 
-    @Option(name = "-u", metaVar = "Unzip", usage = "File unpacking", forbids = {"-z"})
-    private boolean unzip;
+    @Option(name = "-u", metaVar = "unpackingFlag", usage = "File unpacking", forbids = {"-z"})
+    private boolean unpackingFlag;
 
-    @Option(name = "-out", metaVar = "outputFile", usage = "Output document", required = true)
-    private boolean outputFile;
+    @Option(name = "-out", metaVar = "outputFlag", usage = "Output document")
+    private boolean outputFlag;
 
     @Argument(required = true, metaVar = "inputFile", usage = "Input document name")
     private File inputFile;
@@ -30,11 +33,12 @@ public class Main {
             parser.printUsage(System.err);
             return;
         }
-        PackRLE packRLE = new PackRLE(inputFile, zip, unzip);
+        PackRLE packRLE = new PackRLE(inputFile, packingFlag, unpackingFlag, outputFlag);
         try {
-            String result = packRLE.newFile();
-            System.out.println("The file is located in this directory: C:\\Users\\eriks\\IdeaProjects\\task2Java\\" + result);
-            System.out.println("Or: C:\\Users\\eriks\\IdeaProjects\\task2Java\\out\\artifacts\\task2Java_jar\\" + result);
+            if (packingFlag || unpackingFlag) {
+                String result = packRLE.newFile();
+                System.out.println("File name:" + result);
+            } else throw new IllegalArgumentException ("Option \"-z\" or \"-u\" is required");
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Main.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/PackRLE.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/spbstu/icc/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/spbstu/icc/PackRLE.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test/resources/input1.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test/resources/input2.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test/resources/output1.txt" charset="UTF-8" />

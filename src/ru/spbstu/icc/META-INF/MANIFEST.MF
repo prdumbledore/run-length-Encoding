@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+ru.spbstu.icc.Main-Class: ru.spbstu.icc.Main
+

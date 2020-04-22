@@ -1,11 +1,16 @@
-import org.junit.Test;
+package ru.spbstu.icc;
 
-import java.io.*;
+import org.junit.jupiter.api.Test;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MainTest {
+public class PackRLETest {
 
-     void assertEqualsFile(String inputFile, String outputFile) throws IOException { //не нашёл тест на проверку идентичности файлов
+    void assertEqualsFile(String inputFile, String outputFile) throws IOException { //не нашёл тест на проверку идентичности файлов
         StringBuilder sb1 = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
@@ -29,7 +34,7 @@ public class MainTest {
         new Main();
         Main.main(args);
         assertEqualsFile("test\\resources\\output1.txt",
-                "input1_Zip.txt");
+                "output.txt");
     }
 
     @Test
@@ -37,7 +42,7 @@ public class MainTest {
         String[] args = {"-z", "-out", "test\\resources\\input2.txt"};
         Main.main(args);
         assertEqualsFile("test\\resources\\output2.txt",
-                "input2_Zip.txt");
+                "output.txt");
     }
 
     @Test
@@ -45,7 +50,7 @@ public class MainTest {
         String[] args = {"-z", "-out", "test\\resources\\input3.txt"};
         Main.main(args);
         assertEqualsFile("test\\resources\\output3.txt",
-                "input3_Zip.txt");
+                "output.txt");
     }
 
     @Test
@@ -54,7 +59,7 @@ public class MainTest {
         new Main();
         Main.main(args);
         assertEqualsFile("test\\resources\\input1.txt",
-                "output1_Unzip.txt");
+                "output.txt");
     }
 
     @Test
@@ -63,7 +68,7 @@ public class MainTest {
         new Main();
         Main.main(args);
         assertEqualsFile("test\\resources\\input2.txt",
-                "output2_Unzip.txt");
+                "output.txt");
     }
 
     @Test
@@ -72,6 +77,6 @@ public class MainTest {
         new Main();
         Main.main(args);
         assertEqualsFile("test\\resources\\input3.txt",
-                "output3_Unzip.txt");
+                "output.txt");
     }
 }
